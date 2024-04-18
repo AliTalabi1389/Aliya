@@ -14,7 +14,7 @@ WIDTH = 1000
 HEIGHT = 500
 mod = sys.modules['__main__']
 hwnd = pygame.display.get_wm_info()['window']
-windll.user32.MoveWindow(hwnd, 175, 100, WIDTH, HEIGHT, False)
+windll.user32.MoveWindow(hwnd, 140, 100, WIDTH, HEIGHT, False)
 TITLE = "Aliya"
 
 bg1 = Actor("bg1")
@@ -506,7 +506,8 @@ def update():
             laser_off_time = 2000
 
         if hero_status == "normal":
-            if hero_hitbox.colliderect(moving_spike1) or hero_hitbox.colliderect(moving_spike2) or hero_hitbox.colliderect(moving_spike3) \
+            if hero_hitbox.colliderect(moving_spike1) or hero_hitbox.colliderect(moving_spike2)\
+                    or hero_hitbox.colliderect(moving_spike3) \
                     or hero_hitbox.colliderect(moving_spike4) or hero_hitbox.colliderect(moving_spike5) \
                     or hero_hitbox.colliderect(moving_spike6) or hero_hitbox.colliderect(spike_wall1) \
                     or hero_hitbox.collidelist(lasers) != -1 or hero_hitbox.y <= 100 or hero_hitbox.y >= 400:
