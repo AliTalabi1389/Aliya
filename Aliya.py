@@ -75,8 +75,6 @@ open_link4 = Actor("open_but1")
 timer_bg = Actor("timer")
 copy_but1 = Actor("copy_but1")
 copy_but2 = Actor("copy_but1")
-copied_but1 = Actor("copied_but1")
-copied_but2 = Actor("copied_but1")
 
 laser_guns = []
 lasers = []
@@ -134,8 +132,6 @@ open_link4.pos = 10000, 10000
 timer_bg.pos = 10000, 10000
 copy_but1.pos = 10000, 10000
 copy_but2.pos = 10000, 10000
-copied_but1.pos = 10000, 10000
-copied_but2.pos = 10000, 10000
 
 spike_wall1.angle = 90
 spike_wall2.angle = 90
@@ -206,6 +202,8 @@ def contact_come():
     open_link2.pos = 379, HEIGHT // 2 + 30
     open_link3.pos = 617, HEIGHT // 2 + 30
     open_link4.pos = 840, HEIGHT // 2 + 30
+    copy_but1.pos = 306, 402
+    copy_but2.pos = 930, 402
 
 
 def hack_game():
@@ -390,6 +388,8 @@ def draw():
         open_link2.draw()
         open_link3.draw()
         open_link4.draw()
+        copy_but1.draw()
+        copy_but2.draw()
         main_menu_but.draw()
 
     if (game_status != "starting_menu" and game_status != "close_screen" and game_status != "shop"
@@ -962,6 +962,18 @@ def on_mouse_down(pos):
     if open_link4.collidepoint(pos):
         open_link4.image = "open_but2"
 
+    if copy_but1.collidepoint(pos) and copy_but1.image == "copy_but1":
+        copy_but1.image = "copy_but2"
+
+    if copy_but2.collidepoint(pos) and copy_but2.image == "copy_but1":
+        copy_but2.image = "copy_but2"
+
+    if copy_but1.collidepoint(pos) and copy_but1.image == "copied_but1":
+        copy_but1.image = "copied_but2"
+
+    if copy_but2.collidepoint(pos) and copy_but2.image == "copied_but1":
+        copy_but2.image = "copied_but2"
+
 
 def on_mouse_up(pos):
     global game_status, help_screen_come_bool, bgs_speed, hero_speed, hero_turn_speed, moving_spike_speed_y, \
@@ -1072,8 +1084,9 @@ def on_mouse_up(pos):
         open_link4.pos = 10000, 10000
         copy_but1.pos = 10000, 10000
         copy_but2.pos = 10000, 10000
-        copied_but1.pos = 10000, 10000
-        copied_but2.pos = 10000, 10000
+
+        copy_but1.image = "copy_but1"
+        copy_but2.image = "copy_but1"
 
         bgs_speed = 4
         hero_speed = 4
@@ -1202,8 +1215,9 @@ def on_mouse_up(pos):
             open_link4.pos = 10000, 10000
             copy_but1.pos = 10000, 10000
             copy_but2.pos = 10000, 10000
-            copied_but1.pos = 10000, 10000
-            copied_but2.pos = 10000, 10000
+
+            copy_but1.image = "copy_but1"
+            copy_but2.image = "copy_but1"
 
             bgs_speed = 4
             hero_speed = 4
@@ -1543,6 +1557,22 @@ def on_mouse_up(pos):
     if open_link4.collidepoint(pos):
         open_link4.image = "open_but1"
         webbrowser.open(url_eitaa)
+
+    if copy_but1.collidepoint(pos) and copy_but1.image == "copy_but2":
+        pyperclip.copy("+989044089850")
+        copy_but1.image = "copied_but1"
+
+    if copy_but2.collidepoint(pos) and copy_but2.image == "copy_but2":
+        pyperclip.copy("ali.talabi.25@gmail.com")
+        copy_but2.image = "copied_but1"
+
+    if copy_but1.collidepoint(pos) and copy_but1.image == "copied_but2":
+        pyperclip.copy("+989044089850")
+        copy_but1.image = "copied_but1"
+
+    if copy_but2.collidepoint(pos) and copy_but2.image == "copied_but2":
+        pyperclip.copy("ali.talabi.25@gmail.com")
+        copy_but2.image = "copied_but1"
 
 
 pgzrun.go()
