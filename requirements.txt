@@ -1,0 +1,11 @@
+pgzero~=1.2.1
+
+pygame~=2.5.2
+
+PySimpleGUI~=5.0.3
+
+
+pip~=23.2.1
+rsa~=4.9
+pyasn1~=0.5.1
+numpy~=1.26.4
