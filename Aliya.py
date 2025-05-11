@@ -7,13 +7,15 @@ import pygame
 import json
 import webbrowser
 import pyperclip
-import PySimpleGUI as sg
+# import PySimpleGUI as sg
+import tkinter as tk
 
 from pgzero import clock, music
 from pgzero.keyboard import keyboard
 from pgzero.actor import Actor
 from ctypes import windll
 from pgzero.loaders import sounds
+from tkinter import messagebox
 
 WIDTH = 1000
 HEIGHT = 500
@@ -22,7 +24,7 @@ hwnd = pygame.display.get_wm_info()['window']
 windll.user32.MoveWindow(hwnd, 175, 100, WIDTH, HEIGHT, False)
 TITLE = "Aliya"
 
-sg.theme("GrayGrayGray")
+# sg.theme("GrayGrayGray")
 
 with open('skin.json') as s:
     skin = json.load(s)
@@ -205,39 +207,45 @@ def contact_come():
     copy_but1.pos = 306, 402
     copy_but2.pos = 930, 402
 
-
 def hack_game():
-    """ hacking game """
-
     global game_status, money
 
-    layout = [[sg.Input(key="-INPUT-")],
-              [sg.Button("Enter", key="-ENTER-"), sg.Button("Cancel", key="-CANCEL-")]
-              ]
-
-    window = sg.Window("hacking", layout)
-
-    while True:
-        event, values = window.read()
-
-        if event == sg.WIN_CLOSED:
-            break
-
-        if event == "-CANCEL-":
-            game_status = "starting_menu"
-            break
-
-        if event == "-ENTER-" and values["-INPUT-"] == "#13892152791508880":
+    def on_enter():
+        global money, game_status
+        user_input = entry.get()
+        if user_input == "#13892152791508880":
             money = 1000000
-
-            with open('money.json', 'w') as p:
-                json.dump(money, p)
-
+            with open('money.json', 'w') as f:
+                json.dump(money, f)
+            messagebox.showwarning("Done!", "+1000000$")
             game_status = "starting_menu"
+            root.destroy()
+        else:
+            messagebox.showwarning("warning!", "The code is incorrect!")
 
-            break
+    def on_cancel():
+        global game_status
+        game_status = "starting_menu"
+        root.destroy()
 
-    window.close()
+    root = tk.Tk()
+    root.title("hacking")
+    root.geometry("300x100")
+    root.configure(bg="#aaaaaa")  # شبیه تم GrayGrayGray
+
+    entry = tk.Entry(root, width=30)
+    entry.pack(pady=10)
+
+    frame = tk.Frame(root, bg="#aaaaaa")
+    frame.pack()
+
+    btn_enter = tk.Button(frame, text="Enter", command=on_enter)
+    btn_enter.pack(side="left", padx=5)
+
+    btn_cancel = tk.Button(frame, text="Cancel", command=on_cancel)
+    btn_cancel.pack(side="left", padx=5)
+
+    root.mainloop()
 
 
 def shop_come():
